@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Scroll";
+}
+
+<h2>Scroll</h2>
+
+<div class="container">
+  <h3>Tooltip Example</h3>
+  <p>The data-placement attribute specifies the tooltip position.</p>
+  <ul class="list-inline">
+    <li><a href="#" data-toggle="tooltip" data-placement="top" title="Hooray!">Top</a></li>
+    <li><a href="#" data-toggle="tooltip" data-placement="bottom" title="Hooray!">Bottom</a></li>
+    <li><a href="#" data-toggle="tooltip" data-placement="left" title="Hooray!">Left</a></li>
+    <li><a href="#" data-toggle="tooltip" data-placement="right" title="Hooray!">Right</a></li>
+  </ul>
+</div>
+
+<br /><br />
+
+<div id="loader">Processing...</div>
+<br />
+<div id="div1"></div>
+<br />
+<div id="div2"></div>
+
+<script>
+    $(document).ready(function () {
+
+        // Page Setup - hide loader on success
+        $("#loader").css("display", "none");
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        // show loader on start
+        $("#loader").css("display", "block");
+
+        $.get("https://api.particle.io/v1/devices/3c002c000c47353136383631/tempFah?access_token=910e6334e063379fc1d3289298e85a2b7bbcd3d7", function (data, status) {
+        
+            var dataItems = "";
+            jQuery.each(data, function (index, item) {
+                //now you can access properties using dot notation
+                dataItems += index + ": " + item + "<br />";
+            });
+                                    
+            $("#div1").html(dataItems);            
+            
+        });
+
+        $.get("https://api.particle.io/v1/devices/3c002c000c47353136383631/humidity?access_token=910e6334e063379fc1d3289298e85a2b7bbcd3d7", function (data, status) {
+
+            dataItems = "";
+            jQuery.each(data, function (index, item) {
+                //now you can access properties using dot notation
+                dataItems += index + ": " + item + "<br />";
+            });
+
+            //alert("Data: " + dataItems + "\nStatus: " + status);
+
+            $("#div2").html(dataItems);
+
+        });
+
+        // hide loader on success
+        $("#loader").css("display", "none");
+
+    });
+</script>

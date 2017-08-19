@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ksalomon_listModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ksalomon_listEntities" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="webpages_Membership" EntityType="ksalomon_listModel.webpages_Membership" />
+    <EntitySet Name="webpages_OAuthMembership" EntityType="ksalomon_listModel.webpages_OAuthMembership" />
+    <EntitySet Name="webpages_Roles" EntityType="ksalomon_listModel.webpages_Roles" />
+    <EntitySet Name="webpages_UsersInRoles" EntityType="ksalomon_listModel.webpages_UsersInRoles" />
+    <EntitySet Name="Errors" EntityType="ksalomon_listModel.Error" />
+    <EntitySet Name="FileInfoes" EntityType="ksalomon_listModel.FileInfo" />
+    <EntitySet Name="Items" EntityType="ksalomon_listModel.Item" />
+    <EntitySet Name="Members" EntityType="ksalomon_listModel.Member" />
+    <EntitySet Name="Orders" EntityType="ksalomon_listModel.Order" />
+    <EntitySet Name="UserAuths" EntityType="ksalomon_listModel.UserAuth" />
+    <AssociationSet Name="fk_RoleId" Association="ksalomon_listModel.fk_RoleId">
+      <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+      <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+    </AssociationSet>
+    <EntitySet Name="AutomationClouds" EntityType="ksalomon_listModel.AutomationCloud" />
+  </EntityContainer>
+  <EntityType Name="webpages_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="ConfirmationToken" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="IsConfirmed" Type="Boolean" />
+    <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="webpages_OAuthMembership">
+    <Key>
+      <PropertyRef Name="Provider" />
+      <PropertyRef Name="ProviderUserId" />
+    </Key>
+    <Property Name="Provider" Type="String" Nullable="false" MaxLength="30" Unicode="true" FixedLength="false" />
+    <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="webpages_UsersInRoles" Relationship="ksalomon_listModel.fk_RoleId" FromRole="webpages_Roles" ToRole="webpages_UsersInRoles" />
+  </EntityType>
+  <EntityType Name="webpages_UsersInRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="webpages_Roles" Relationship="ksalomon_listModel.fk_RoleId" FromRole="webpages_UsersInRoles" ToRole="webpages_Roles" />
+  </EntityType>
+  <EntityType Name="Error">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ErrorDescription" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="ErrorCategory" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="OrderID" Type="Int32" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="FileInfo">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="FileName" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="FilePath" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="FileDescription" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="FileSize" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="MemberFK" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ItemName" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="ItemQuantity" Type="Int32" />
+    <Property Name="ItemSize" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="ItemComments" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="ItemCategory" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="LastName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="Address2" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="City" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="State" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="Zip" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="Password" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="PhoneMobile" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="PhoneHome" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="PhoneBusiness" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+    <Property Name="OptIn" Type="Boolean" />
+    <Property Name="OrderID" Type="Int32" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderRaw" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="MemberID" Type="Int32" Nullable="false" />
+    <Property Name="OrderTitle" Type="String" MaxLength="255" Unicode="false" FixedLength="false" />
+    <Property Name="OrderDescription" Type="String" MaxLength="1000" Unicode="false" FixedLength="false" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="DateDelivery" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="UserAuth">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+  </EntityType>
+  <Association Name="fk_RoleId">
+    <End Role="webpages_Roles" Type="ksalomon_listModel.webpages_Roles" Multiplicity="1" />
+    <End Role="webpages_UsersInRoles" Type="ksalomon_listModel.webpages_UsersInRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="webpages_Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="webpages_UsersInRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AutomationCloud">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="cmd" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="name" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Double" Name="result" />
+    <Property Type="String" Name="last_app" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="last_heard" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="connected" />
+    <Property Type="String" Name="last_handshake_at" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="deviceID" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="product_id" />
+    <Property Type="DateTime" Name="CreatedDate" Precision="3" />
+  </EntityType>
+</Schema>

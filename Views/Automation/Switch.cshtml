@@ -1,0 +1,57 @@
+﻿@{
+    ViewBag.Title = "Switch";
+}
+
+<h2>Switch</h2>
+
+<br />
+
+<div class="checkbox">
+  <label>
+    <input data-toggle="toggle" type="checkbox" name="args" value="on">
+    Option one is enabled
+  </label>
+</div>
+<div class="checkbox disabled">
+  <label>
+    <input disabled data-toggle="toggle" type="checkbox">
+    Option two is disabled
+  </label>
+</div>
+
+<br />
+
+<input id="toggle-trigger" data-toggle="toggle" type="checkbox">
+
+<button class="btn btn-success" onclick="toggleOn()">On by API</button>
+<button class="btn btn-danger" onclick="toggleOff()">Off by API</button>
+<button class="btn btn-success" onclick="toggleOnByInput()">On by Input</button>
+<button class="btn btn-danger" onclick="toggleOffByInput()">Off by Input</button>
+
+<br />
+
+<input id="toggle-event" data-toggle="toggle" type="checkbox">
+<div id="console-event"></div>
+
+<script>
+    $(function () {
+        $('#toggle-event').change(function () {
+            $('#console-event').html('Toggle: ' + $(this).prop('checked'))
+        })
+    })
+</script>
+
+<script>
+  function toggleOn() {
+    $('#toggle-trigger').bootstrapToggle('on')
+  }
+  function toggleOff() {
+    $('#toggle-trigger').bootstrapToggle('off')  
+  }
+  function toggleOnByInput() {
+    $('#toggle-trigger').prop('checked', true).change()
+  }
+  function toggleOffByInput() {
+    $('#toggle-trigger').prop('checked', false).change()
+  }
+</script>

@@ -1,0 +1,155 @@
+﻿@model HomeAutomationMVC.DAL.Member
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Member</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FirstName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FirstName)
+            @Html.ValidationMessageFor(model => model.FirstName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.LastName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.LastName)
+            @Html.ValidationMessageFor(model => model.LastName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address)
+            @Html.ValidationMessageFor(model => model.Address)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Address2)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Address2)
+            @Html.ValidationMessageFor(model => model.Address2)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.City)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.City)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.State)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.State)
+            @Html.ValidationMessageFor(model => model.State)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Zip)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Zip)
+            @Html.ValidationMessageFor(model => model.Zip)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PhoneMobile)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PhoneMobile)
+            @Html.ValidationMessageFor(model => model.PhoneMobile)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PhoneHome)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PhoneHome)
+            @Html.ValidationMessageFor(model => model.PhoneHome)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PhoneBusiness)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PhoneBusiness)
+            @Html.ValidationMessageFor(model => model.PhoneBusiness)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OptIn)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OptIn)
+            @Html.ValidationMessageFor(model => model.OptIn)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.OrderID)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.OrderID)
+            @Html.ValidationMessageFor(model => model.OrderID)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateCreated)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateCreated)
+            @Html.ValidationMessageFor(model => model.DateCreated)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DateUpdated)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DateUpdated)
+            @Html.ValidationMessageFor(model => model.DateUpdated)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

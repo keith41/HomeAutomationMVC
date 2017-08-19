@@ -1,0 +1,218 @@
+﻿@model IEnumerable<HomeAutomationMVC.DAL.AutomationCloud>
+
+@{
+    ViewBag.Title = "Monitor";
+
+    string displayDateTime;
+    int rowCounter = 1;
+    
+    int temperature = 0;
+    int humidity = 0;
+}
+
+<style>      
+
+      #g1 {
+        width:25%; height:25%;
+        display: inline-block;
+        margin: 1em;
+      }
+	  
+	  #h1 {
+        width:25%; height:25%;
+        display: inline-block;
+        margin: 1em;
+      }      
+     
+    </style>
+
+	<style type="text/css">
+	.tg  {border-collapse:collapse;border-spacing:0;}
+	.tg td{font-family:Arial, sans-serif;font-size:18px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+	.tg th{font-family:Arial, sans-serif;font-size:18px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
+	.tg .tg-yw4l{vertical-align:top}
+	</style> 
+
+    @section featured {
+        <section class="featured">
+            <div class="content-wrapper">
+                <hgroup class="title">
+                    <h1>@ViewBag.Title</h1>                    
+                </hgroup>
+                <p>
+                    Temperature and Humidity                    
+                </p>
+            </div>
+        </section>
+    } 
+   
+	<table id="gageView">
+	  <tr>
+	    <th class="tg-yw4l">
+		Temperature
+		</th>
+		<th class="tg-yw4l">
+		Humidity
+		</th>
+	  </tr>	
+	  <tr>
+		<td class="tg-yw4l">
+		<div style="display: inline-block; width: 200px; text-align: center" id="g1"></div>
+		</td>
+		<td class="tg-yw4l">
+		<div style="display: inline-block; width: 200px; text-align: center" id="h1"></div>
+		</td>		
+	  </tr>
+	</table> 
+
+<br />
+<br />
+
+<form method="post">
+
+    <input type="button" id="button1" value="Refresh"/>
+
+</form>
+
+    <br />
+
+    <div id="curve_chart" style="width: 100%; height: 500px"></div>   
+    				  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.2.9/justgage.js"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	
+    <script>
+
+        $(document).ready(function () {
+
+       $("#button1").click(function () {
+           $(location.reload());
+       });
+	            
+      var g1 = new JustGage({
+          id: "g1",
+          value: 0,
+          min: 30,
+          max: 100,
+          title: "Degrees F",
+          label: "Degrees"
+        }); 
+		
+		var h1 = new JustGage({
+          id: "h1",
+          value: 0,
+          min: 10,
+          max: 100,
+          title: "Humidity",
+          label: "Percent"
+        }); 
+
+        $.get("https://api.particle.io/v1/devices/3c002c000c47353136383631/tempFah?access_token=910e6334e063379fc1d3289298e85a2b7bbcd3d7", function (data, status) {
+        
+            var dataItems = "";
+            jQuery.each(data, function (index, item) {
+                //now you can access properties using dot notation
+                dataItems += index + ": " + item + "<br />";
+            });
+                                    
+            //$("#div1").html(dataItems); 
+
+            var myJSON = JSON.stringify(data);	
+
+            //$("#div1").append(myJSON);
+
+            var obj = JSON.parse(myJSON);
+
+            //$("#div1").append(obj.result);
+
+            g1.refresh(obj.result);			
+            
+        });
+		
+		$.get("https://api.particle.io/v1/devices/3c002c000c47353136383631/humidity?access_token=910e6334e063379fc1d3289298e85a2b7bbcd3d7", function (data, status) {
+
+            dataItems = "";
+            jQuery.each(data, function (index, item) {
+                //now you can access properties using dot notation
+                dataItems += index + ": " + item + "<br />";
+            });            
+
+            //$("#div2").html(dataItems);
+			
+			var myJSON2 = JSON.stringify(data);	
+
+            //$("#div2").append(myJSON2);
+
+            var obj2 = JSON.parse(myJSON2);
+
+            //$("#div2").append(obj2.result);
+
+            h1.refresh(obj2.result);				
+
+        });
+
+        /*setInterval(function() {
+          g1.refresh(getRandomInt(50, 100)); }, 2500);
+        };*/ 
+	 
+	 });
+	 
+    </script>
+
+    <script type="text/javascript">
+    google.charts.load('current', { 'packages': ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Time', 'Temperature', 'Humidity'],
+          /*['7:00', 77, 52],*/
+
+          @foreach (var item in Model) 
+            {
+                if (item.result != null && item.result > 0)
+                {
+                    displayDateTime = item.CreatedDate.Value.ToShortTimeString();
+                    
+                    if(item.name == "tempFah")
+                    {
+                        temperature = Convert.ToInt32(item.result);                        
+                    }
+                    else if (item.name == "humidity")
+                    {
+                        humidity = Convert.ToInt32(item.result); 
+                    }
+
+                    if (rowCounter == 2)
+                    {                        
+                        @:['@(displayDateTime)', @(temperature), @(humidity)],
+
+                        rowCounter = 1;
+                    }
+                    rowCounter++;
+                }                
+            }
+
+        ]);
+
+        var options = {
+            title: 'Temperature and Humidity',
+            curveType: 'function',
+            legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+    }
+    </script>
+	
+	<br />
+    <div id="div1"></div>
+	<br />
+    <div id="div2"></div>
+
+
+
