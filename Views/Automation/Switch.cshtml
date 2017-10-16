@@ -2,56 +2,74 @@
     ViewBag.Title = "Switch";
 }
 
-<h2>Switch</h2>
+<h2>Relay Control</h2>
 
 <br />
 
-<div class="checkbox">
-  <label>
-    <input data-toggle="toggle" type="checkbox" name="args" value="on">
-    Option one is enabled
-  </label>
-</div>
-<div class="checkbox disabled">
-  <label>
-    <input disabled data-toggle="toggle" type="checkbox">
-    Option two is disabled
-  </label>
-</div>
-
-<br />
-
-<input id="toggle-trigger" data-toggle="toggle" type="checkbox">
-
-<button class="btn btn-success" onclick="toggleOn()">On by API</button>
-<button class="btn btn-danger" onclick="toggleOff()">Off by API</button>
-<button class="btn btn-success" onclick="toggleOnByInput()">On by Input</button>
-<button class="btn btn-danger" onclick="toggleOffByInput()">Off by Input</button>
-
-<br />
-
-<input id="toggle-event" data-toggle="toggle" type="checkbox">
 <div id="console-event"></div>
+      
+<!--<form id="formBasic" action="https://api.particle.io/v1/devices/24002a001247353136383631/led?access_token=910e6334e063379fc1d3289298e85a2b7bbcd3d7" method="POST" class="form-inline">-->
+<form id="formBasic">
+           
+Control Relay D0<br>    
+    
+    <br>
+    <input type="radio" name="args" value="on">Turn Relay On.
+    <br>
+    <input type="radio" name="args" value="off">Turn Relay off.
+    <br>      
+    
+    <div class="form-group">
+    <!--<input id="submit" type="submit" value="Submit">-->
+    <button id="submit" class="btn btn-success">Control Relay</button>
+    </div>
+</form>  
 
+    <br> <br> 
+    <div id="displayMessage">
+
+    </div>  
+ 
 <script>
-    $(function () {
-        $('#toggle-event').change(function () {
-            $('#console-event').html('Toggle: ' + $(this).prop('checked'))
-        })
-    })
+    
+    $(document).ready(function () {
+
+        var formBasic = function () {
+
+            var formData = $("#formBasic").serialize();
+
+            $.ajax({
+                type: 'post',
+                data: formData,
+                dataType: 'json',
+                url: 'https://api.particle.io/v1/devices/24002a001247353136383631/led?access_token=910e6334e063379fc1d3289298e85a2b7bbcd3d7',
+                error: function () {
+                    alert("There was an error processing this page.");
+                    return false;
+                },
+                complete: function (output) {
+
+                    var jsonResult = JSON.stringify(output.responseText);
+                    var resultObj = JSON.parse(jsonResult);
+
+                    $('#submit').removeClass("btn btn-success");
+                    $('#submit').addClass( "btn btn-info" );
+                    $('#displayMessage').html(output.responseText);
+                    
+                }
+            });
+
+            return false;
+        };
+
+        $("#submit").on("click", function (e) {
+            e.preventDefault();
+            formBasic();
+        });
+
+        //Add more button handlers here
+
+    });
+    
 </script>
 
-<script>
-  function toggleOn() {
-    $('#toggle-trigger').bootstrapToggle('on')
-  }
-  function toggleOff() {
-    $('#toggle-trigger').bootstrapToggle('off')  
-  }
-  function toggleOnByInput() {
-    $('#toggle-trigger').prop('checked', true).change()
-  }
-  function toggleOffByInput() {
-    $('#toggle-trigger').prop('checked', false).change()
-  }
-</script>

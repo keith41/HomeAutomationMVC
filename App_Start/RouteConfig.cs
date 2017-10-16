@@ -14,15 +14,16 @@ namespace HomeAutomationMVC
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-            name: "Automation",
-            url: "Automation/{action}/{id}",
-            defaults: new
-            {
-                controller = "Automation",
-                action = "Monitor",
-                id = UrlParameter.Optional
-            }
-    );
+                name: "Automation",
+                url: "Automation/{action}/{id}",
+                defaults: new { controller = "Automation", action = "Monitor", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "Switch",
+                url: "Automation/{action}/{id}",
+                defaults: new { controller = "Automation", action = "Switch", id = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
                 name: "Default",

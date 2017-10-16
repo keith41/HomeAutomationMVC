@@ -27,6 +27,8 @@ namespace HomeAutomationMVC
             //    appSecret: "");
 
             //OAuthWebSecurity.RegisterGoogleClient();
+
+            OAuthWebSecurity.RegisterLinkedInClient("862fedmvtv3ctb", "suy34a3NIjj3EHYY");
         }
     }
 }
