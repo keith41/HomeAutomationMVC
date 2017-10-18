@@ -11,30 +11,70 @@
 <!--<form id="formBasic" action="https://api.particle.io/v1/devices/24002a001247353136383631/led?access_token=910e6334e063379fc1d3289298e85a2b7bbcd3d7" method="POST" class="form-inline">-->
 <form id="formBasic">
            
-Control Relay D0<br>    
-    
+    Control Relay D0<br>
     <br>
     <input type="radio" name="args" value="on">Turn Relay On.
     <br>
     <input type="radio" name="args" value="off">Turn Relay off.
-    <br>      
-    
+    <br>
     <div class="form-group">
     <!--<input id="submit" type="submit" value="Submit">-->
     <button id="submit" class="btn btn-success">Control Relay</button>
     </div>
-</form>  
 
     <br> <br> 
-    <div id="displayMessage">
+    <div id="displayMessage"></div>
+    <br> 
+    Control Relay D1<br>
+    <br>
+    <input type="radio" name="args2" value="on">Turn Relay On.
+    <br>
+    <input type="radio" name="args2" value="off">Turn Relay off.
+    <br>
+    <div class="form-group">
+    <!--<input id="submit" type="submit" value="Submit">-->
+    <button id="submit2" class="btn btn-success">Control Relay</button>
+    </div>
 
-    </div>  
+    <br> <br> 
+    <div id="displayMessage2"></div>
+    <br> 
+    Control Relay D2<br>
+    <br>
+    <input type="radio" name="args3" value="on">Turn Relay On.
+    <br>
+    <input type="radio" name="args3" value="off">Turn Relay off.
+    <br>
+    <div class="form-group">
+    <!--<input id="submit" type="submit" value="Submit">-->
+    <button id="submit3" class="btn btn-success">Control Relay</button>
+    </div>
+
+    <br> <br> 
+    <div id="displayMessage3"></div>
+
+    <br> 
+    Control Relay D3<br>
+    <br>
+    <input type="radio" name="args4" value="on">Turn Relay On.
+    <br>
+    <input type="radio" name="args4" value="off">Turn Relay off.
+    <br>
+    <div class="form-group">
+    <!--<input id="submit" type="submit" value="Submit">-->
+    <button id="submit4" class="btn btn-success">Control Relay</button>
+    </div>
+
+    <br> <br> 
+    <div id="displayMessage4"></div>
+
+</form>       
  
 <script>
     
     $(document).ready(function () {
 
-        var formBasic = function () {
+        var formBasic = function (channel, submit, displayMessage) {
 
             var formData = $("#formBasic").serialize();
 
@@ -42,7 +82,7 @@ Control Relay D0<br>
                 type: 'post',
                 data: formData,
                 dataType: 'json',
-                url: 'https://api.particle.io/v1/devices/24002a001247353136383631/led?access_token=910e6334e063379fc1d3289298e85a2b7bbcd3d7',
+                url: 'https://api.particle.io/v1/devices/24002a001247353136383631/' + channel + '?access_token=910e6334e063379fc1d3289298e85a2b7bbcd3d7',
                 error: function () {
                     alert("There was an error processing this page.");
                     return false;
@@ -52,22 +92,35 @@ Control Relay D0<br>
                     var jsonResult = JSON.stringify(output.responseText);
                     var resultObj = JSON.parse(jsonResult);
 
-                    $('#submit').removeClass("btn btn-success");
-                    $('#submit').addClass( "btn btn-info" );
-                    $('#displayMessage').html(output.responseText);
+                    $('#' + submit).removeClass("btn btn-success");
+                    $('#' + submit).addClass( "btn btn-info" );
+                    $('#' + displayMessage).html(output.responseText);
                     
                 }
             });
 
             return false;
-        };
+        };        
 
         $("#submit").on("click", function (e) {
             e.preventDefault();
-            formBasic();
+            formBasic("led", "submit", "displayMessage");
         });
 
-        //Add more button handlers here
+        $("#submit2").on("click", function (e) {
+            e.preventDefault();
+            formBasic("led2", "submit2", "displayMessage2");
+        });
+
+        $("#submit3").on("click", function (e) {
+            e.preventDefault();
+            formBasic("led3", "submit3", "displayMessage3");
+        });
+
+        $("#submit4").on("click", function (e) {
+            e.preventDefault();
+            formBasic("led4", "submit4", "displayMessage4");
+        });
 
     });
     
