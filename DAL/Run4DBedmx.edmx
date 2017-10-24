@@ -11,6 +11,7 @@
           <EntitySet Name="webpages_Roles" EntityType="ksalomon_listModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="webpages_UsersInRoles" EntityType="ksalomon_listModel.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="AutomationCloud" EntityType="ksalomon_listModel.Store.AutomationCloud" store:Type="Tables" Schema="ksalo_list" />
+          <EntitySet Name="ControlStatus" EntityType="ksalomon_listModel.Store.ControlStatus" store:Type="Tables" Schema="ksalo_list" />
           <EntitySet Name="Error" EntityType="ksalomon_listModel.Store.Error" store:Type="Tables" Schema="ksalo_list" />
           <EntitySet Name="FileInfo" EntityType="ksalomon_listModel.Store.FileInfo" store:Type="Tables" Schema="ksalo_list" />
           <EntitySet Name="Item" EntityType="ksalomon_listModel.Store.Item" store:Type="Tables" Schema="ksalo_list" />
@@ -77,6 +78,20 @@
           <Property Name="deviceID" Type="varchar" MaxLength="50" />
           <Property Name="product_id" Type="int" />
           <Property Name="CreatedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ControlStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="Description" Type="varchar" MaxLength="250" />
+          <Property Name="ControlNumber" Type="int" />
+          <Property Name="Enabled" Type="bit" />
+          <Property Name="ControlGroup" Type="varchar" MaxLength="50" />
+          <Property Name="ControlType" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Error">
           <Key>
@@ -190,6 +205,7 @@
             <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
           </AssociationSet>
           <EntitySet Name="AutomationClouds" EntityType="ksalomon_listModel.AutomationCloud" />
+          <EntitySet Name="ControlStatus" EntityType="ksalomon_listModel.ControlStatu" />
         </EntityContainer>
         <EntityType Name="webpages_Membership">
           <Key>
@@ -341,6 +357,20 @@
           <Property Type="Int32" Name="product_id" />
           <Property Type="DateTime" Name="CreatedDate" Precision="3" />
         </EntityType>
+        <EntityType Name="ControlStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="DateTime" Name="CreatedDate" Precision="3" />
+          <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
+          <Property Type="Boolean" Name="Status" />
+          <Property Type="String" Name="Description" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ControlNumber" />
+          <Property Type="Boolean" Name="Enabled" />
+          <Property Type="String" Name="ControlGroup" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ControlType" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -488,6 +518,21 @@
                 <ScalarProperty Name="result" ColumnName="result" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="cmd" ColumnName="cmd" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ControlStatus">
+            <EntityTypeMapping TypeName="ksalomon_listModel.ControlStatu">
+              <MappingFragment StoreEntitySet="ControlStatus">
+                <ScalarProperty Name="ControlType" ColumnName="ControlType" />
+                <ScalarProperty Name="ControlGroup" ColumnName="ControlGroup" />
+                <ScalarProperty Name="Enabled" ColumnName="Enabled" />
+                <ScalarProperty Name="ControlNumber" ColumnName="ControlNumber" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

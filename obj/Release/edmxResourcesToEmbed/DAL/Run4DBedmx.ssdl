@@ -6,6 +6,7 @@
     <EntitySet Name="webpages_Roles" EntityType="ksalomon_listModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="webpages_UsersInRoles" EntityType="ksalomon_listModel.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="AutomationCloud" EntityType="ksalomon_listModel.Store.AutomationCloud" store:Type="Tables" Schema="ksalo_list" />
+    <EntitySet Name="ControlStatus" EntityType="ksalomon_listModel.Store.ControlStatus" store:Type="Tables" Schema="ksalo_list" />
     <EntitySet Name="Error" EntityType="ksalomon_listModel.Store.Error" store:Type="Tables" Schema="ksalo_list" />
     <EntitySet Name="FileInfo" EntityType="ksalomon_listModel.Store.FileInfo" store:Type="Tables" Schema="ksalo_list" />
     <EntitySet Name="Item" EntityType="ksalomon_listModel.Store.Item" store:Type="Tables" Schema="ksalo_list" />
@@ -72,6 +73,20 @@
     <Property Name="deviceID" Type="varchar" MaxLength="50" />
     <Property Name="product_id" Type="int" />
     <Property Name="CreatedDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="ControlStatus">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="Description" Type="varchar" MaxLength="250" />
+    <Property Name="ControlNumber" Type="int" />
+    <Property Name="Enabled" Type="bit" />
+    <Property Name="ControlGroup" Type="varchar" MaxLength="50" />
+    <Property Name="ControlType" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="Error">
     <Key>

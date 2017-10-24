@@ -1,4 +1,6 @@
-﻿@{
+﻿@model HomeAutomationMVC.Models.RelayStateModel
+
+@{
     ViewBag.Title = "Switch";
 }
 
@@ -92,33 +94,60 @@
                     var jsonResult = JSON.stringify(output.responseText);
                     var resultObj = JSON.parse(jsonResult);
 
+                    $("#formBasic")[0].reset();
+
                     $('#' + submit).removeClass("btn btn-success");
                     $('#' + submit).addClass( "btn btn-info" );
-                    $('#' + displayMessage).html(output.responseText);
+                    $('#' + displayMessage).html(output.responseText);                    
                     
                 }
             });
+            
+            var relayStateModel = {};
+            relayStateModel.args1 = $("input[name=args]").val();
+            relayStateModel.args2 = $("input[name=args2]").val();
+            relayStateModel.args3 = $("input[name=args3]").val();
+            relayStateModel.args4 = $("input[name=args4]").val();
+            relayStateModel.selectControl = formData;
+
+            $.ajax({
+                type: "POST",
+                url: "/Automation/RelayState",                
+                data: '{relayStateModel: ' + JSON.stringify(relayStateModel) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    //alert("Hello: " + response.Name + " .\nCurrent Date and Time: " + response.DateTime);
+                    $('#' + displayMessage).append("<br />" + relayStateModel.selectControl);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });            
 
             return false;
         };        
 
         $("#submit").on("click", function (e) {
-            e.preventDefault();
+            e.preventDefault(); // <------------------ stop default behaviour of button
             formBasic("led", "submit", "displayMessage");
         });
 
         $("#submit2").on("click", function (e) {
-            e.preventDefault();
+            e.preventDefault(); // <------------------ stop default behaviour of button
             formBasic("led2", "submit2", "displayMessage2");
         });
 
         $("#submit3").on("click", function (e) {
-            e.preventDefault();
+            e.preventDefault(); // <------------------ stop default behaviour of button
             formBasic("led3", "submit3", "displayMessage3");
         });
 
         $("#submit4").on("click", function (e) {
-            e.preventDefault();
+            e.preventDefault(); // <------------------ stop default behaviour of button
             formBasic("led4", "submit4", "displayMessage4");
         });
 

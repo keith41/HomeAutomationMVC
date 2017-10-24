@@ -49,5 +49,41 @@ namespace HomeAutomationMVC.Controllers
             return View();
         }
 
+        public ActionResult Schedule()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult RelayState(HomeAutomationMVC.Models.RelayStateModel relayStateModel)
+        {
+            string status = "success";
+
+            try
+            {
+                using (db = new ksalomon_listEntities())
+                {
+                    //Insert new record
+                    db.ControlStatus.Add(new ControlStatu { CreatedDate = DateTime.Now, Status = true, Enabled = true, Description = relayStateModel.selectControl  });
+                    db.SaveChanges();
+
+                }
+            }
+            catch(Exception ex)
+            {
+                status = ex.ToString();
+            }
+
+            Models.RelayStatusModel rsm = new Models.RelayStatusModel
+            {
+                Name = relayStateModel.selectControl,
+                DateTime = DateTime.Now,
+                responseText = status
+            };
+
+            return Json(rsm, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

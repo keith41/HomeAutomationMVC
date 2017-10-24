@@ -171,6 +171,9 @@
     <Compile Include="DAL\AutomationCloud.cs">
       <DependentUpon>Run4DBedmx.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAL\ControlStatu.cs">
+      <DependentUpon>Run4DBedmx.tt</DependentUpon>
+    </Compile>
     <Compile Include="DAL\Error.cs">
       <DependentUpon>Run4DBedmx.tt</DependentUpon>
     </Compile>
@@ -222,6 +225,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CoreInfo.cs" />
+    <Compile Include="Models\RelayStatusModel.cs" />
     <Compile Include="Models\SiteUserModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -373,6 +377,7 @@
     <Content Include="Views\AS\Index.cshtml" />
     <Content Include="Views\Automation\Monitor.cshtml" />
     <Content Include="Views\Automation\Switch.cshtml" />
+    <Content Include="Views\Automation\Schedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

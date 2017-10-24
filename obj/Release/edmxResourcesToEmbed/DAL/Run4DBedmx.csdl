@@ -16,6 +16,7 @@
       <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
     </AssociationSet>
     <EntitySet Name="AutomationClouds" EntityType="ksalomon_listModel.AutomationCloud" />
+    <EntitySet Name="ControlStatus" EntityType="ksalomon_listModel.ControlStatu" />
   </EntityContainer>
   <EntityType Name="webpages_Membership">
     <Key>
@@ -166,5 +167,19 @@
     <Property Type="String" Name="deviceID" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Type="Int32" Name="product_id" />
     <Property Type="DateTime" Name="CreatedDate" Precision="3" />
+  </EntityType>
+  <EntityType Name="ControlStatu">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="DateTime" Name="CreatedDate" Precision="3" />
+    <Property Type="DateTime" Name="UpdatedDate" Precision="3" />
+    <Property Type="Boolean" Name="Status" />
+    <Property Type="String" Name="Description" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="ControlNumber" />
+    <Property Type="Boolean" Name="Enabled" />
+    <Property Type="String" Name="ControlGroup" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ControlType" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

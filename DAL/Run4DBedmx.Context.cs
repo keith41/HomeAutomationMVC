@@ -36,5 +36,6 @@ namespace HomeAutomationMVC.DAL
         public DbSet<Order> Orders { get; set; }
         public DbSet<UserAuth> UserAuths { get; set; }
         public DbSet<AutomationCloud> AutomationClouds { get; set; }
+        public DbSet<ControlStatu> ControlStatus { get; set; }
     }
 }
