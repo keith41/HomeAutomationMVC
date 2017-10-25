@@ -110,9 +110,11 @@
             relayStateModel.args4 = $("input[name=args4]").val();
             relayStateModel.selectControl = formData;
 
+            //var RootUrl = '@Url.Content("~/")';
+
             $.ajax({
                 type: "POST",
-                url: "/Automation/RelayState",                
+                url: "/MVC4/Automation/RelayState",
                 data: '{relayStateModel: ' + JSON.stringify(relayStateModel) + '}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

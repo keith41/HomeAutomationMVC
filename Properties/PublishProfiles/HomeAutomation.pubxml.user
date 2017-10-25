@@ -35,7 +35,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/20/2017 12:55:47</publishTime>
     </File>
     <File Include="bin/HomeAutomationMVC.dll">
-      <publishTime>10/24/2017 16:28:23</publishTime>
+      <publishTime>10/25/2017 15:13:41</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>04/20/2017 12:55:58</publishTime>
@@ -407,7 +407,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/25/2017 11:20:00</publishTime>
     </File>
     <File Include="Views/Automation/Switch.cshtml">
-      <publishTime>10/24/2017 16:18:17</publishTime>
+      <publishTime>10/25/2017 14:30:29</publishTime>
     </File>
     <File Include="Views/EF/Create.cshtml">
       <publishTime>05/05/2017 13:42:39</publishTime>

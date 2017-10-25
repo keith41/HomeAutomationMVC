@@ -54,18 +54,39 @@ namespace HomeAutomationMVC.Controllers
             return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost]         
         public JsonResult RelayState(HomeAutomationMVC.Models.RelayStateModel relayStateModel)
         {
             string status = "success";
+            int relayNumberToControl = 0;
+
+            if (relayStateModel.selectControl.Contains("4"))
+            { relayNumberToControl = 4; }
+            else if (relayStateModel.selectControl.Contains("3"))
+            { relayNumberToControl = 3; }
+            else if (relayStateModel.selectControl.Contains("2"))
+            { relayNumberToControl = 2; }
+            else
+            { relayNumberToControl = 1; }
 
             try
             {
                 using (db = new ksalomon_listEntities())
                 {
-                    //Insert new record
-                    db.ControlStatus.Add(new ControlStatu { CreatedDate = DateTime.Now, Status = true, Enabled = true, Description = relayStateModel.selectControl  });
+                    //Insert/Update new record
+                    //db.ControlStatus.Add(new ControlStatu { CreatedDate = DateTime.Now, Status = true, Enabled = true, Description = relayStateModel.selectControl  });
+                    ControlStatu record = db.ControlStatus.Where(
+                        x => x.ControlGroup == "RelayControlGroup" && x.ControlNumber == relayNumberToControl && x.ControlType == "RelayControl").First();
+                    if (record == null)
+                    {
+                        status = "No record found!";
+                        throw new Exception(status);
+                    }
+
+                    record.Description = relayStateModel.selectControl;
+                    record.Status = relayStateModel.selectControl.Contains("on") ? true : false;
+                    record.UpdatedDate = DateTime.Now;
+
                     db.SaveChanges();
 
                 }
