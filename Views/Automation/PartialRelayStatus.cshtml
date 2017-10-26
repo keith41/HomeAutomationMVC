@@ -1,0 +1,17 @@
+﻿@model HomeAutomationMVC.DAL.ControlStatu
+
+@using HomeAutomationMVC.Helpers
+
+<div id="console-relay">
+
+Current State:
+<br />
+
+Relay 1: @Html.YesNo(@Model.currentState1)<br />
+Relay 2: @Html.YesNo(@Model.currentState2)<br />
+Relay 3: @Html.YesNo(@Model.currentState3)<br />
+Relay 4: @Html.YesNo(@Model.currentState4)<br />
+
+<br /><br />
+</div>
+

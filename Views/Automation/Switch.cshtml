@@ -1,5 +1,7 @@
 ﻿@model HomeAutomationMVC.Models.RelayStateModel
 
+@using HomeAutomationMVC.Helpers
+
 @{
     ViewBag.Title = "Switch";
 }
@@ -8,8 +10,23 @@
 
 <br />
 
-<div id="console-event"></div>
-      
+@*
+@Html.RenderPartial("/MVC4/Automation/RelayState/PartialRelayStatus", model);
+*@
+
+<div id="console-relay">
+
+Current State:
+<br />
+
+Relay 1: @Html.YesNo(@Model.currentState1)<br />
+Relay 2: @Html.YesNo(@Model.currentState2)<br />
+Relay 3: @Html.YesNo(@Model.currentState3)<br />
+Relay 4: @Html.YesNo(@Model.currentState4)<br />
+
+<br /><br />
+</div>
+    
 <!--<form id="formBasic" action="https://api.particle.io/v1/devices/24002a001247353136383631/led?access_token=910e6334e063379fc1d3289298e85a2b7bbcd3d7" method="POST" class="form-inline">-->
 <form id="formBasic">
            

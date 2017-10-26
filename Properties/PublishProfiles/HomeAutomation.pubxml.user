@@ -35,7 +35,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/20/2017 12:55:47</publishTime>
     </File>
     <File Include="bin/HomeAutomationMVC.dll">
-      <publishTime>10/25/2017 15:13:41</publishTime>
+      <publishTime>10/25/2017 17:32:36</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>04/20/2017 12:55:58</publishTime>
@@ -400,6 +400,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Automation/Monitor.cshtml">
       <publishTime>10/16/2017 09:42:24</publishTime>
     </File>
+    <File Include="Views/Automation/PartialRelayStatus.cshtml">
+      <publishTime>10/25/2017 17:26:58</publishTime>
+    </File>
     <File Include="Views/Automation/Schedule.cshtml">
       <publishTime>10/19/2017 11:30:20</publishTime>
     </File>
@@ -407,7 +410,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/25/2017 11:20:00</publishTime>
     </File>
     <File Include="Views/Automation/Switch.cshtml">
-      <publishTime>10/25/2017 14:30:29</publishTime>
+      <publishTime>10/25/2017 17:32:04</publishTime>
     </File>
     <File Include="Views/EF/Create.cshtml">
       <publishTime>05/05/2017 13:42:39</publishTime>

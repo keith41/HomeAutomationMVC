@@ -46,4 +46,3 @@ C:\Users\kfsvlsi\documents\visual studio 2012\Projects\HomeAutomationMVC\HomeAut
 C:\Users\kfsvlsi\documents\visual studio 2012\Projects\HomeAutomationMVC\HomeAutomationMVC\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
 C:\Users\kfsvlsi\documents\visual studio 2012\Projects\HomeAutomationMVC\HomeAutomationMVC\obj\Debug\HomeAutomationMVC.dll
 C:\Users\kfsvlsi\documents\visual studio 2012\Projects\HomeAutomationMVC\HomeAutomationMVC\obj\Debug\HomeAutomationMVC.pdb
-C:\Users\kfsvlsi\Documents\Visual Studio 2012\Projects\HomeAutomationMVC\HomeAutomationMVC\obj\Debug\HomeAutomationMVC.csprojResolveAssemblyReference.cache

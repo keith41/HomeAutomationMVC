@@ -46,7 +46,51 @@ namespace HomeAutomationMVC.Controllers
 
         public ActionResult Switch()
         {
-            return View();
+            string status = "success";
+            HomeAutomationMVC.Models.RelayStateModel relayStateModel = new Models.RelayStateModel();
+
+            try
+            {
+                using (db = new ksalomon_listEntities())
+                {
+                    for (int i = 1; i <= 4; i++)
+                    {
+                        ControlStatu record = db.ControlStatus.Where(
+                                    x => x.ControlGroup == "RelayControlGroup"
+                                        && x.ControlNumber == i
+                                        && x.ControlType == "RelayControl").First();
+                        if (record == null)
+                        {
+                            status = "No record found!";
+                        }
+                        //Convert nullable bool to bool
+                        bool translatedBool = record.Status ?? false;
+
+                        switch (i)
+                        {
+                            case 1:
+                                relayStateModel.currentState1 = translatedBool;
+                                break;
+                            case 2:
+                                relayStateModel.currentState2 = translatedBool;
+                                break;
+                            case 3:
+                                relayStateModel.currentState3 = translatedBool;
+                                break;
+                            case 4:
+                                relayStateModel.currentState4 = translatedBool;
+                                break;
+                        }
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                status = ex.ToString();
+            }
+
+            return View(relayStateModel);
         }
 
         public ActionResult Schedule()

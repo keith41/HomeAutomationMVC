@@ -223,6 +223,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Display.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\CoreInfo.cs" />
     <Compile Include="Models\RelayStatusModel.cs" />
@@ -378,6 +379,7 @@
     <Content Include="Views\Automation\Monitor.cshtml" />
     <Content Include="Views\Automation\Switch.cshtml" />
     <Content Include="Views\Automation\Schedule.cshtml" />
+    <Content Include="Views\Automation\PartialRelayStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
