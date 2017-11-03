@@ -24,6 +24,12 @@ namespace HomeAutomationMVC
                 url: "Automation/{action}/{id}",
                 defaults: new { controller = "Automation", action = "Switch", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "PartialRelayStatus",
+                url: "Automation/{action}/{id}",
+                defaults: new { controller = "Automation", action = "PartialRelayStatus", id = UrlParameter.Optional }
+            );
                         
             routes.MapRoute(
                 name: "Default",

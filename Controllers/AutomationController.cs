@@ -30,6 +30,8 @@ namespace HomeAutomationMVC.Controllers
             return View();
         }
 
+        [OutputCache(CacheProfile = "OutCache")] 
+        /*[OutputCache(Duration = 300, VaryByParam = "none")]*/
         public ActionResult Monitor()
         {            
             DateTime endDate = DateTime.Now.AddHours(-24);
@@ -44,7 +46,19 @@ namespace HomeAutomationMVC.Controllers
             return View(data);            
         }
 
+        //[ValidateInput(false)]
         public ActionResult Switch()
+        {
+            return View();
+        }
+        
+        public ActionResult Schedule()
+        {
+            return View();
+        }
+
+        [ChildActionOnly]        
+        public ActionResult PartialRelayStatus()
         {
             string status = "success";
             HomeAutomationMVC.Models.RelayStateModel relayStateModel = new Models.RelayStateModel();
@@ -81,7 +95,7 @@ namespace HomeAutomationMVC.Controllers
                                 relayStateModel.currentState4 = translatedBool;
                                 break;
                         }
-                        
+
                     }
                 }
             }
@@ -90,12 +104,7 @@ namespace HomeAutomationMVC.Controllers
                 status = ex.ToString();
             }
 
-            return View(relayStateModel);
-        }
-
-        public ActionResult Schedule()
-        {
-            return View();
+            return PartialView("~/Views/Automation/PartialRelayStatus.cshtml", relayStateModel);
         }
 
         [HttpPost]         
