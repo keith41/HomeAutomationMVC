@@ -1,12 +1,25 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "Switch";
 }
 
-<h2>Relay Control</h2>
+<h2>Relay Control Panel</h2>
+
+@*
+<br />
+@Html.Action("PartialRelayStatus")
+*@
+<br />
+
+@Html.Action("PartialLEDStatus")
 
 <br />
 
-@Html.Action("PartialRelayStatus")
+@*
+<div id="statusPanel">
+@{Html.RenderPartial("PartialRelayStatus", Model);}
+</div>
+*@
    
 <!--<form id="formBasic" action="https://api.particle.io/v1/devices/24002a001247353136383631/led?access_token=910e6334e063379fc1d3289298e85a2b7bbcd3d7" method="POST" class="form-inline">-->
 <form id="formBasic">
@@ -77,7 +90,8 @@
         var formBasic = function (channel, submit, displayMessage) {
 
             var formData = $("#formBasic").serialize();
-
+            var url = "/MVC4/Automation/";
+                                    
             $.ajax({
                 type: 'post',
                 data: formData,
@@ -90,13 +104,23 @@
                 complete: function (output) {
 
                     var jsonResult = JSON.stringify(output.responseText);
-                    var resultObj = JSON.parse(jsonResult);
-
-                    $("#formBasic")[0].reset();
+                    var resultObj = JSON.parse(jsonResult);                                     
 
                     $('#' + submit).removeClass("btn btn-success");
                     $('#' + submit).addClass( "btn btn-info" );
-                    $('#' + displayMessage).html(output.responseText);                    
+                    $('#' + displayMessage).html(output.responseText);
+
+                    //Change LED Status
+                    if(formData.includes("on"))
+                    {
+                        $('#' + channel).removeClass("led-green");
+                        $('#' + channel).addClass("led-red");
+                    }
+                    else
+                    {
+                        $('#' + channel).removeClass("led-red");
+                        $('#' + channel).addClass("led-green");
+                    }
                     
                 }
             });
@@ -106,19 +130,17 @@
             relayStateModel.args2 = $("input[name=args2]").val();
             relayStateModel.args3 = $("input[name=args3]").val();
             relayStateModel.args4 = $("input[name=args4]").val();
-            relayStateModel.selectControl = formData;
-
-            //var RootUrl = '@Url.Content("~/")';
-
+            relayStateModel.selectControl = formData;                       
+            
             $.ajax({
                 type: "POST",
-                url: "/MVC4/Automation/RelayState",
+                url: url + "RelayState",
                 data: '{relayStateModel: ' + JSON.stringify(relayStateModel) + '}',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: function (response) {
                     //alert("Hello: " + response.Name + " .\nCurrent Date and Time: " + response.DateTime);
-                    $('#' + displayMessage).append("<br />" + relayStateModel.selectControl);
+                    //$('#' + displayMessage).append(" Updated Database: " + relayStateModel.selectControl);
                 },
                 failure: function (response) {
                     alert(response.responseText);
@@ -129,23 +151,18 @@
             });
 
             //Update Relay Partial View
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("PartialRelayStatus", "Automation")",
-                success: function (result, status, xhr) {
-                    alert("Result: " + status + " " + xhr.status + " " + xhr.statusText)
-                },
-                error: function (xhr, status, error) {
-                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-                }
-            });
+            //https://cmatskas.com/update-an-mvc-partial-view-with-ajax/
+            //var categoryId = $("#ddlCategory").val();
+            //$("#statusPanel").load(@(Url.Action("GetRelayStatus","Automation")));
 
+            $("#formBasic")[0].reset();        
+            
             return false;
         };        
 
         $("#submit").on("click", function (e) {
             e.preventDefault(); // <------------------ stop default behaviour of button
-            formBasic("led", "submit", "displayMessage");
+            formBasic("led", "submit", "displayMessage");            
         });
 
         $("#submit2").on("click", function (e) {

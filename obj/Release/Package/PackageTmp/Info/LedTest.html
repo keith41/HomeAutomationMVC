@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Led Test</title>
+
+    <link href="/Content/LED.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script> 
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#submit").on("click", function (e) {
+                e.preventDefault(); // <------------------ stop default behaviour of button
+                $('#led1').removeClass("led-green");
+                $('#led1').addClass("led-red");
+            });
+
+        });
+
+  </script>
+
+</head>
+<body>
+
+  <div class="container">
+  
+  <div class="led-box">
+    <div id="led1" class="led-green"></div>
+    <p>Green LED</p>
+  </div>
+	<div class="led-box">
+    <div class="led-yellow"></div>
+    <p>Yellow LED</p>
+  </div>
+  <div class="led-box">
+    <div class="led-red"></div>
+    <p>Red LED</p>
+  </div>
+  <div class="led-box">
+    <div class="led-blue"></div>
+    <p>Blue LED</p>
+  </div>
+  
+  <form id="formBasic">
+  
+  <button id="submit" >Change Color</button>
+  
+  </form>
+  
+  </div>  
+
+</body>
+</html>

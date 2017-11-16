@@ -229,8 +229,10 @@
     <Compile Include="Models\RelayStatusModel.cs" />
     <Compile Include="Models\SiteUserModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\GPIOViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\LED.css" />
     <Content Include="Content\themes\base\bootstrap.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -309,6 +311,7 @@
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\logoAuto.jpeg" />
     <Content Include="Images\logoAuto2.jpeg" />
+    <Content Include="Info\LedTest.html" />
     <Content Include="Scripts\bootstrap.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-3.2.1.js" />
@@ -380,10 +383,10 @@
     <Content Include="Views\Automation\Switch.cshtml" />
     <Content Include="Views\Automation\Schedule.cshtml" />
     <Content Include="Views\Automation\PartialRelayStatus.cshtml" />
+    <Content Include="Views\Automation\PartialLEDStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

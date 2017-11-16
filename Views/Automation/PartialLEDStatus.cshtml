@@ -1,0 +1,50 @@
+﻿@model HomeAutomationMVC.Models.RelayStateModel
+
+<div class="container">
+  
+  <div class="led-box">
+  @if (Model.currentState1)
+  {
+    <div id="led" class="led-red"></div>
+  }
+  else
+  {
+    <div id="led" class="led-green"></div>
+  }     
+    <p>DO</p>
+  </div>
+  <div class="led-box">
+  @if (Model.currentState2)
+  {
+    <div id="led2" class="led-red"></div>
+  }
+  else
+  {
+    <div id="led2" class="led-green"></div>
+  }     
+    <p>D1</p>
+  </div>
+  <div class="led-box">
+   @if (Model.currentState3)
+  {
+    <div id="led3" class="led-red"></div>
+  }
+  else
+  {
+    <div id="led3" class="led-green"></div>
+  } 
+    <p>D2</p>
+  </div>
+  <div class="led-box">
+   @if (Model.currentState4)
+  {
+    <div id="led4" class="led-red"></div>
+  }
+  else
+  {
+    <div id="led4" class="led-green"></div>
+  } 
+    <p>D3</p>
+  </div>  
+    
+</div>

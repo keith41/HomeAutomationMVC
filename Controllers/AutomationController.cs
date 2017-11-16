@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
+using System.Threading;
+using System.Threading.Tasks;
+
 using HomeAutomationMVC.DAL;
 
 namespace HomeAutomationMVC.Controllers
@@ -34,7 +38,7 @@ namespace HomeAutomationMVC.Controllers
         /*[OutputCache(Duration = 300, VaryByParam = "none")]*/
         public ActionResult Monitor()
         {            
-            DateTime endDate = DateTime.Now.AddHours(-24);
+            DateTime endDate = DateTime.Now.AddHours(-48);
 
             List<AutomationCloud> data = db.AutomationClouds.Where(x => x.CreatedDate >= endDate)
                 .OrderBy(x => x.Id)
@@ -55,6 +59,62 @@ namespace HomeAutomationMVC.Controllers
         public ActionResult Schedule()
         {
             return View();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetRelayStatus()
+        {            
+            var model = await this.GetFullAndPartialViewModel();
+            return PartialView("PartialRelayStatus", model);
+        }
+
+        private async Task<HomeAutomationMVC.Models.RelayStateModel> GetFullAndPartialViewModel()  
+        {
+            HomeAutomationMVC.Models.RelayStateModel relayStateModel = new Models.RelayStateModel();
+            string status = "success";
+
+            try
+            {
+                using (db = new ksalomon_listEntities())
+                {
+                    for (int i = 1; i <= 4; i++)
+                    {
+                        ControlStatu record = db.ControlStatus.Where(
+                                    x => x.ControlGroup == "RelayControlGroup"
+                                        && x.ControlNumber == i
+                                        && x.ControlType == "RelayControl").First();
+                        if (record == null)
+                        {
+                            status = "No record found!";
+                        }
+                        //Convert nullable bool to bool
+                        bool translatedBool = record.Status ?? false;
+
+                        switch (i)
+                        {
+                            case 1:
+                                relayStateModel.currentState1 = translatedBool;
+                                break;
+                            case 2:
+                                relayStateModel.currentState2 = translatedBool;
+                                break;
+                            case 3:
+                                relayStateModel.currentState3 = translatedBool;
+                                break;
+                            case 4:
+                                relayStateModel.currentState4 = translatedBool;
+                                break;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                status = ex.ToString();
+            }
+
+            return relayStateModel;
         }
 
         [ChildActionOnly]        
@@ -105,6 +165,57 @@ namespace HomeAutomationMVC.Controllers
             }
 
             return PartialView("~/Views/Automation/PartialRelayStatus.cshtml", relayStateModel);
+        }
+
+        [ChildActionOnly]  
+        public ActionResult PartialLEDStatus()
+        {
+            //Populate ViewModel
+            string status = "success";
+            HomeAutomationMVC.Models.RelayStateModel relayStateModel = new Models.RelayStateModel();
+
+            try
+            {
+                using (db = new ksalomon_listEntities())
+                {
+                    for (int i = 1; i <= 4; i++)
+                    {
+                        ControlStatu record = db.ControlStatus.Where(
+                                    x => x.ControlGroup == "RelayControlGroup"
+                                        && x.ControlNumber == i
+                                        && x.ControlType == "RelayControl").First();
+                        if (record == null)
+                        {
+                            status = "No record found!";
+                        }
+                        //Convert nullable bool to bool
+                        bool translatedBool = record.Status ?? false;
+
+                        switch (i)
+                        {
+                            case 1:
+                                relayStateModel.currentState1 = translatedBool;
+                                break;
+                            case 2:
+                                relayStateModel.currentState2 = translatedBool;
+                                break;
+                            case 3:
+                                relayStateModel.currentState3 = translatedBool;
+                                break;
+                            case 4:
+                                relayStateModel.currentState4 = translatedBool;
+                                break;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                status = ex.ToString();
+            }
+
+            return PartialView("~/Views/Automation/PartialLEDStatus.cshtml", relayStateModel);
         }
 
         [HttpPost]         
