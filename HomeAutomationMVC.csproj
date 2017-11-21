@@ -229,6 +229,7 @@
     <Compile Include="Models\RelayStatusModel.cs" />
     <Compile Include="Models\SiteUserModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\PhotonDataService.cs" />
     <Compile Include="ViewModels\GPIOViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -384,9 +385,12 @@
     <Content Include="Views\Automation\Schedule.cshtml" />
     <Content Include="Views\Automation\PartialRelayStatus.cshtml" />
     <Content Include="Views\Automation\PartialLEDStatus.cshtml" />
+    <Content Include="Views\Shared\_LEDStatusPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Behaviors\" />
+    <Folder Include="Orchestrator\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -13,25 +13,34 @@
 <style>      
 
       #g1 {
-        width:25%; height:25%;
+        width:75%; height:75%;
         display: inline-block;
+        text-align: left;
         margin: 1em;
       }
 	  
 	  #h1 {
-        width:25%; height:25%;
+        width:75%; height:75%;
         display: inline-block;
+        text-align: left;
         margin: 1em;
-      }      
+      }
+
+      #gageView {
+       width:100%; height:100%;       
+       border: dashed;
+       border-color: lightblue;
+       padding:20px 10px;
+      }     
      
-    </style>
+</style>
 
 	<style type="text/css">
 	.tg  {border-collapse:collapse;border-spacing:0;}
 	.tg td{font-family:Arial, sans-serif;font-size:18px;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
 	.tg th{font-family:Arial, sans-serif;font-size:18px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
 	.tg .tg-yw4l{vertical-align:top}
-	</style> 
+	</style>
 
     @section featured {
         <section class="featured">
@@ -47,25 +56,24 @@
     } 
    
 	<table id="gageView">
-	  <tr>
-	    <th class="tg-yw4l">
+	  <tr style="width: 100%;">
+	    <th style="width: 50%;" class="tg-yw4l">
 		Temperature
 		</th>
-		<th class="tg-yw4l">
+		<th style="width: 50%;" class="tg-yw4l">
 		Humidity
 		</th>
 	  </tr>	
-	  <tr>
-		<td class="tg-yw4l">
-		<div style="display: inline-block; width: 200px; text-align: center" id="g1"></div>
+	  <tr style="width: 100%;">
+		<td style="width: 50%;" class="tg-yw4l">
+		<div id="g1"></div>
 		</td>
-		<td class="tg-yw4l">
-		<div style="display: inline-block; width: 200px; text-align: center" id="h1"></div>
+		<td style="width: 50%;" class="tg-yw4l">
+		<div id="h1"></div>
 		</td>		
 	  </tr>
 	</table> 
 
-<br />
 <br />
 
 <form method="post">
@@ -76,7 +84,7 @@
 
     <br />
 
-    <div id="curve_chart" style="width: 100%; height: 500px"></div> 
+    <div id="curve_chart" style="width: 100%; height: 400px"></div> 
         				  
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.2.9/justgage.js"></script>
@@ -95,7 +103,7 @@
           id: "g1",
           value: 0,
           min: 30,
-          max: 100,
+          max: 120,
           title: "Degrees F",
           label: "Degrees"
         }); 

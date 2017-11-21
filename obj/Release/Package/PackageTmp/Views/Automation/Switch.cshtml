@@ -20,8 +20,13 @@
 @{Html.RenderPartial("PartialRelayStatus", Model);}
 </div>
 *@
-   
-<!--<form id="formBasic" action="https://api.particle.io/v1/devices/24002a001247353136383631/led?access_token=910e6334e063379fc1d3289298e85a2b7bbcd3d7" method="POST" class="form-inline">-->
+
+<style>
+    #waiting * {
+    cursor: progress;
+}
+</style>
+
 <form id="formBasic">
            
     Control Relay D0<br>
@@ -162,24 +167,32 @@
 
         $("#submit").on("click", function (e) {
             e.preventDefault(); // <------------------ stop default behaviour of button
-            formBasic("led", "submit", "displayMessage");            
+            $("#submit").addClass('waiting');
+            formBasic("led", "submit", "displayMessage");
+            $("#submit").removeClass('waiting');
         });
 
         $("#submit2").on("click", function (e) {
             e.preventDefault(); // <------------------ stop default behaviour of button
+            $("#submit2").addClass('waiting');
             formBasic("led2", "submit2", "displayMessage2");
+            $("#submit2").removeClass('waiting');
         });
 
         $("#submit3").on("click", function (e) {
             e.preventDefault(); // <------------------ stop default behaviour of button
+            $("#submit3").addClass('waiting');
             formBasic("led3", "submit3", "displayMessage3");
+            $("#submit3").removeClass('waiting');
         });
 
         $("#submit4").on("click", function (e) {
             e.preventDefault(); // <------------------ stop default behaviour of button
+            $("#submit4").addClass('waiting');
             formBasic("led4", "submit4", "displayMessage4");
+            $("#submit4").removeClass('waiting');
         });
-
+        
     });
     
 </script>

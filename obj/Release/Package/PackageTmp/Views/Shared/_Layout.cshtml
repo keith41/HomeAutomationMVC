@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <title>Environment Monitor & Control</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         @Styles.Render("~/Content/css")  
         @Styles.Render("~/Content/themes/base/css")       
@@ -19,36 +19,41 @@
         <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-checkbox/1.4.0/bootstrap-checkbox.min.js"></script>
         
-        @*<script>
+        <script>
             jQuery(document).ready(function ($) {
 
-            // get initial top position of menu
-            var init = $('#cssmenu').offset().top;
-            // listen to window scroll event
-            $(window).scroll(function () {
-                // if top of window scrolled past top of menu
-                if ($(window).scrollTop() > init) {
-                    // fix the menu to the top of the page
-                    $('#cssmenu').css({
-                        top: 0,
-                        position: 'fixed'
-                    });
-                } else {
-                    // otherwise put it back in its regular position
-                    $('#cssmenu').css('position', 'relative');
-                }
-            });
+                $('#mainHeaderImage').css({ 'height': '70px', 'width': '90%' });
+
+                @*
+                // get initial top position of menu
+                var init = $('#cssmenu').offset().top;
+                // listen to window scroll event
+                $(window).scroll(function () {
+                    // if top of window scrolled past top of menu
+                    if ($(window).scrollTop() > init) {
+                        // fix the menu to the top of the page
+                        $('#cssmenu').css({
+                            top: 0,
+                            position: 'fixed'
+                        });
+                    } else {
+                        // otherwise put it back in its regular position
+                        $('#cssmenu').css('position', 'relative');
+                    }
+                });
+                *@
 
             });
-        </script>*@   
+        </script> 
 
     </head>
     <body>
-        <header >
+        
+        <header >            
             <div class="content-wrapper">
                 <div class="float-left">                    
                     <a href="@Url.Action("Index", "Home")" title="Home" class="site-title">
-                    <img src="~/images/logoAuto2.jpeg" alt="Logo" height="70" width="400">                        
+                    <img id="mainHeaderImage" src="~/images/logoAuto2.jpeg" alt="Logo" >                        
                    </a>
                 </div>
                 <div class="float-right">
@@ -67,13 +72,15 @@
                     </nav>
                 </div>
             </div>
-        </header>
+        </header>        
+
         <div id="body">
             @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
                 @RenderBody()
             </section>
-        </div>
+        </div>        
+
         <footer>
             <div class="content-wrapper">
                 <div class="float-left">
